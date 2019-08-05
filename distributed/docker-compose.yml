@@ -1,0 +1,27 @@
+version: "3.7"
+
+services:
+  db1:
+    build: .
+    environment:
+      ADVERTISE_ADDR: "172.27.0.2"
+      #CLUSTER_MEMBERS: "3"
+    ports:
+      - "8080:8080"
+  db2:
+    build: .
+    environment:
+      ADVERTISE_ADDR: "172.27.0.3"
+      CLUSTER_ADDR: "172.27.0.2"
+      #CLUSTER_MEMBERS: "3"
+    ports:
+      - "8081:8080"
+
+  db3:
+    build: .
+    environment:
+      ADVERTISE_ADDR: "172.27.0.4"
+      CLUSTER_ADDR: "172.27.0.3"
+     #CLUSTER_MEMBERS: "3"
+    ports:
+      - "8082:8080"
