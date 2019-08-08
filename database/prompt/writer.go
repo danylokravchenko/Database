@@ -1,10 +1,10 @@
 package prompt
 
 import (
+	"../structures"
 	"bufio"
 	"fmt"
 	"os"
-	"../structures"
 )
 
 var Writer *bufio.Writer

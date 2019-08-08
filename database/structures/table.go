@@ -22,7 +22,7 @@ func (table *Table) RowSlot(rowNum uint32) *Row {
 
 	pageNum := rowNum / ROWS_PER_PAGE
 	page := table.Pages[pageNum]
-	rowOffset := rowNum * ROWS_PER_PAGE
+	rowOffset := rowNum % ROWS_PER_PAGE
 
 	return &page.Rows[rowOffset]
 

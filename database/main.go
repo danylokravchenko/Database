@@ -1,12 +1,12 @@
 package main
 
 import (
+	"./commands"
+	"./errors"
+	"./prompt"
+	"./structures"
 	"log"
 	"os"
-	"./prompt"
-	"./errors"
-	"./commands"
-	"./structures"
 )
 
 func main() {
