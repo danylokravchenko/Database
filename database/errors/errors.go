@@ -20,3 +20,11 @@ func EmptyLine() {
 func UnrecognizedCommand(message string) {
 	prompt.PrintError(fmt.Sprintf("Unrecognized command '%s'.", message))
 }
+
+
+/**
+ * Error for keyword that not present
+ */
+func UnrecognizedKeyword(message string) {
+	prompt.PrintError(fmt.Sprintf("Unrecognized keyword at start of '%s'.", message))
+}
