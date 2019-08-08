@@ -28,3 +28,19 @@ func UnrecognizedCommand(message string) {
 func UnrecognizedKeyword(message string) {
 	prompt.PrintError(fmt.Sprintf("Unrecognized keyword at start of '%s'.", message))
 }
+
+
+/**
+ * Error for syntax error
+ */
+func SyntaxError() {
+	prompt.PrintError("Syntax error. Could not execute the statement.")
+}
+
+
+/**
+ * Error for full table
+ */
+func TableFull() {
+	prompt.PrintError("Error: Table full.")
+}

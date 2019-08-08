@@ -1,8 +1,7 @@
 package commands
 
 import (
-	//"os"
-	//"../prompt"
+
 )
 
 type MetaCommandResult int
@@ -18,7 +17,7 @@ const (
  */
 func MetaCommand(input string) MetaCommandResult {
 
-	if (input == ".exit") {
+	if len(input) >= 5 && input[0:5] == ".exit" {
 		return META_COMMAND_EXIT
 	} else {
 		return META_COMMAND_UNRECOGNIZED_COMMAND

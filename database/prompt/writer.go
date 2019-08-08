@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"../structures"
 )
 
 var Writer *bufio.Writer
@@ -46,8 +47,21 @@ func PrintError(message string) {
 }
 
 
+/**
+ * Print info message in console using yellow color
+ */
 func PrintInfoMessage(message string) {
 
 	fmt.Fprintf(Writer, "%s \n", YellowColor(message))
 	Flush()
+}
+
+/**
+ * Print row
+ */
+func PrintRow(row *structures.Row) {
+
+	fmt.Fprintf(Writer, "(%d, %s, %s)\n", row.ID, row.Username, row.Email)
+	Flush()
+
 }
