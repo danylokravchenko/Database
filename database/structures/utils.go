@@ -2,7 +2,9 @@ package structures
 
 //#include <string.h>
 import "C"
-import "unsafe"
+import (
+	"unsafe"
+)
 
 
 /**
@@ -13,6 +15,7 @@ func memcpy(destination unsafe.Pointer, source unsafe.Pointer, size uint32) {
 	C.memcpy(destination, source, C.size_t(size))
 
 }
+
 
 func memmove(dest, src []byte) int {
 	n := len(src)
@@ -25,3 +28,5 @@ func memmove(dest, src []byte) int {
 	C.memmove(unsafe.Pointer(&dest[0]), unsafe.Pointer(&src[0]), C.size_t(n))
 	return n
 }
+
+

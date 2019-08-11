@@ -17,13 +17,15 @@ func init() {
 
 
 /**
- * Read line from the console
+ * Read line from the console and trim a line
  */
 func ReadLine() string {
+
 	str, _, err := Reader.ReadLine()
 	if err == io.EOF {
 		return ""
 	}
 
-	return strings.TrimRight(string(str), "\r\n")
+	return strings.TrimLeft(strings.TrimRight(string(str), "\r\n"), " ")
+
 }

@@ -7,6 +7,7 @@ import (
 	"./structures"
 	"log"
 	"os"
+	"flag"
 )
 
 func main() {
@@ -14,7 +15,16 @@ func main() {
 	// if we crash the go code, we get the file name and line number
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
-	table := structures.NewTable()
+	var filename string
+	flag.StringVar(&filename, "file", "", "Usage")
+	flag.Parse()
+
+	if filename == "" {
+		errors.DatabaseFilename()
+		os.Exit(0)
+	}
+
+	table := structures.DBOpen(filename)
 
 	for {
 
@@ -28,7 +38,7 @@ func main() {
 
 
 		if string(input[0]) == "." {
-			switch commands.MetaCommand(input) {
+			switch commands.MetaCommand(input, table) {
 				case commands.META_COMMAND_SUCCESS:
 					continue
 				case commands.META_COMMAND_UNRECOGNIZED_COMMAND:
@@ -49,6 +59,12 @@ func main() {
 				continue
 			case commands.PREPARE_UNRECOGNIZED_STATEMENT:
 				errors.UnrecognizedKeyword(input)
+				continue
+			case commands.PREPARE_TOO_LONG_STRING:
+				errors.StringTooLong()
+				continue
+			case commands.PREPARE_NEGATIVE_ID:
+				errors.NegativeId()
 				continue
 		}
 

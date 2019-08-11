@@ -44,3 +44,24 @@ func SyntaxError() {
 func TableFull() {
 	prompt.PrintError("Error: Table full.")
 }
+
+
+/**
+ * Error for input string params longer than max length
+ */
+func StringTooLong() {
+	prompt.PrintError("String params are too long.")
+}
+
+
+/**
+ * Error for negative id
+ */
+func NegativeId() {
+	prompt.PrintError("ID have to be positive.")
+}
+
+
+func DatabaseFilename() {
+	prompt.PrintError("Must supply a database filename.")
+}

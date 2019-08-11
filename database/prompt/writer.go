@@ -23,7 +23,7 @@ func init() {
 func PrintPrompt() {
 
 	fmt.Fprintf(Writer,"db > ")
-	Flush()
+	flush()
 
 }
 
@@ -31,7 +31,7 @@ func PrintPrompt() {
 /**
  * Flush writer's buffer
  */
-func Flush() {
+func flush() {
 	Writer.Flush()
 }
 
@@ -42,7 +42,7 @@ func Flush() {
 func PrintError(message string) {
 
 	fmt.Fprintf(Writer,"%s \n", RedColor(message))
-	Flush()
+	flush()
 
 }
 
@@ -53,7 +53,7 @@ func PrintError(message string) {
 func PrintInfoMessage(message string) {
 
 	fmt.Fprintf(Writer, "%s \n", YellowColor(message))
-	Flush()
+	flush()
 }
 
 /**
@@ -62,6 +62,6 @@ func PrintInfoMessage(message string) {
 func PrintRow(row *structures.Row) {
 
 	fmt.Fprintf(Writer, "(%d, %s, %s)\n", row.ID, row.Username, row.Email)
-	Flush()
+	flush()
 
 }
