@@ -121,8 +121,11 @@ func (statement *Statement) insertData(table *structures.Table) ExecuteResult {
 	}
 
 	row := statement.Row
+	//When inserting a row, we open a cursor at the end of table, write to that cursor location,
+	//then close the cursor.
+	cursor := table.End()
 
-	structures.SerializeRow(&row, table.RowSlot(table.NumRows))
+	structures.SerializeRow(&row, cursor.Value())
 	table.NumRows++
 
 	return EXECUTE_SUCCESS
@@ -135,11 +138,15 @@ func (statement *Statement) insertData(table *structures.Table) ExecuteResult {
  */
 func (statement *Statement) selectData(table *structures.Table) ExecuteResult {
 
+	//When selecting all rows in the table, we open a cursor at the start of the table,
+	//print the row, then advance the cursor to the next row. Repeat until we’ve reached the end of the table.
+	cursor := table.Start()
 	row := structures.Row{}
 
-	for i := uint32(0) ; i < table.NumRows; i++ {
-		structures.DeserializeRow(table.RowSlot(i), &row)
+	for !cursor.EndOfTable {
+		structures.DeserializeRow(cursor.Value(), &row)
 		prompt.PrintRow(&row)
+		cursor.Advance()
 	}
 
 	return EXECUTE_SUCCESS

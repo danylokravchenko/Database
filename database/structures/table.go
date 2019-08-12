@@ -16,21 +16,6 @@ type Table struct {
 
 
 /**
- * Free row slot
- * Return row where to write
- */
-func (table *Table) RowSlot(rowNum uint32) *Row {
-
-	pageNum := rowNum / ROWS_PER_PAGE
-	page := table.Pager.GetPage(pageNum)
-	rowOffset := rowNum % ROWS_PER_PAGE
-
-	return &page.Rows[rowOffset]
-
-}
-
-
-/**
  * Open connection to db and initialize table and pager
  */
 func DBOpen(filename string) *Table {
@@ -79,6 +64,34 @@ func (table *Table) DBClose() {
 
 	for i := uint32(0); i < TABLE_MAX_PAGES; i++ {
 		pager.Pages[i] = nil
+	}
+
+}
+
+
+/**
+ * Create new cursor at the start of the table
+ */
+func (table *Table) Start() *Cursor {
+
+	return &Cursor{
+		Table:      table,
+		RowNumber:  0,
+		EndOfTable: table.NumRows == 0,
+	}
+
+}
+
+
+/**
+ * Create new cursor at the end of the table
+ */
+func (table *Table) End() *Cursor {
+
+	return &Cursor{
+		Table:      table,
+		RowNumber:  table.NumRows,
+		EndOfTable: true,
 	}
 
 }
